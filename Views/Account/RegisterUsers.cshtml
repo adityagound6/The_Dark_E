@@ -1,0 +1,96 @@
+﻿@model RegisterViewModel;
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<!--SignIn Section-->
+<section>
+    <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 ">
+                            <div class="container py-5 h-100">
+                                <div class="row d-flex justify-content-center align-items-center h-100">
+                                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                                            <div class="card-body p-5 text-center">
+
+                                                <div class="mb-md-5 mt-md-4 pb-5">
+
+                                                    <h2 class="fw-bold mb-2 text-uppercase">Registeration</h2>
+                                                    <p class="text-white-50 mb-5">Please enter your datails..!</p>
+
+                                                    <form asp-action="RegisterUsers" asp-controller="Account" method="post">
+
+
+
+                                                        <div class="form-outline form-white mb-4">
+                                                            <label asp-for="Email" class="form-label">Email</label>
+                                                            <input asp-for="Email" class="form-control form-control-lg" />
+                                                            <span class="text-danger" asp-validation-for="Email"></span>
+                                                        </div>
+
+
+                                                        <div class="form-outline form-white mb-4">
+                                                            <label asp-for="Name" class="form-label">Name</label>
+                                                            <input asp-for="Name" class="form-control form-control-lg" />
+                                                            <span class="text-danger" asp-validation-for="Name"></span>
+                                                        </div>
+
+                                                        <div class="form-outline form-white mb-4">
+                                                            <label asp-for="Address" class="form-label">Address</label>
+                                                            <input asp-for="Address" id="typeAddressX" class="form-control form-control-lg" />
+                                                            <span class="text-danger" asp-validation-for="Address"></span>
+                                                        </div>
+
+                                                        <div class="form-outline form-white mb-4">
+                                                            <label asp-for="PostCode" class="form-label">Post Code</label>
+                                                            <input asp-for="PostCode" class="form-control form-control-lg" />
+                                                            <span class="text-danger" asp-validation-for="PostCode"></span>
+                                                        </div>
+
+                                                        <div class="form-outline form-white mb-4">
+
+                                                            <label class="form-label" for="typePasswordX">Password</label>
+                                                            <input asp-for="Password" class="form-control form-control-lg" />
+                                                            <span class="text-danger" asp-validation-for="Password"></span>
+                                                        </div>
+                                                        <div class="form-outline form-white mb-4">
+
+                                                            <label class="form-label" asp-for="ConfirmPassword">Password</label>
+                                                            <input asp-for="ConfirmPassword" class="form-control form-control-lg" />
+                                                            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                                                        </div>
+
+
+                                                        <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+
+                                                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+                                                    </form>
+                                                    <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                                                        <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                                        <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                                                        <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                                                    </div>
+
+                                                </div>
+
+                                                <div>
+                                                    <p class="mb-0">Have you already account? <a asp-action="LogIn" asp-controller="Account" class="text-white-50 fw-bold">Log In</a></p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

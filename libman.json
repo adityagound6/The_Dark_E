@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/js/jquery/"
+    },
+    {
+      "library": "jquery-validation@1.19.3",
+      "destination": "wwwroot/js/jquery-validation/"
+    }
+  ]
+}
