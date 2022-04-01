@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FoodRest.ViewModel.Accounts
 {
-    public class RegisterViewModel
+    public class CreateViewModel
     {
         [Required]
         [EmailAddress(ErrorMessage ="Email should contain @gmail.com")]

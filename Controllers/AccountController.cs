@@ -37,7 +37,7 @@ namespace FoodRest.Controllers
         }
         [HttpPost]
         [Obsolete]
-        public IActionResult RegisterUsers(RegisterViewModel model)
+        public IActionResult RegisterUsers(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace FoodRest.Controllers
 
         //process of file uploading
         [Obsolete]
-        private string ProcessUploadFile(RegisterViewModel model)
+        public string ProcessUploadFile(CreateViewModel model)
         {
             string uniqueFileName = null;
             if (model.Photo != null)
