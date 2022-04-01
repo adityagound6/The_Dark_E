@@ -11,5 +11,9 @@ namespace FoodRest.Models.SqlRepositry
         public Users AddUsers(Users user);
         public bool IsUser(LogInViewModel model);
         public Users GetUserById(LogInViewModel model);
+        public IEnumerable<Users> GetUser();
+        public Users GetUsersById(int userId);
+        public void DeleteUsersById(int userId);
+        public Users EditUser(int userId, Users model);
     }
 }

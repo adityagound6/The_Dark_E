@@ -23,10 +23,43 @@ namespace FoodRest.Models.SqlRepositry
             //throw new NotImplementedException();
         }
 
+        public void DeleteUsersById(int userId)
+        {
+            var user = context.Users.Find(userId);
+            context.Users.Remove(user);
+            context.SaveChanges();
+            throw new NotImplementedException();
+        }
+
+        public Users EditUser(int userId, Users model)
+        {
+            Users user = context.Users.Find(userId);
+            user.Address = model.Address;
+            user.Email = model.Email;
+            user.Name = model.Name;
+            user.PostCode = model.PostCode;
+            user.Image = model.Image;
+            context.SaveChanges();
+            return user;
+            //throw new NotImplementedException();
+        }
+
+        public IEnumerable<Users> GetUser()
+        {
+            return context.Users;
+            //throw new NotImplementedException();
+        }
+
         public Users GetUserById(LogInViewModel model)
         {
             var user = context.Users.Where(x => x.Email == model.Email).FirstOrDefault();
             return user;
+            throw new NotImplementedException();
+        }
+
+        public Users GetUsersById(int userId)
+        {
+            return context.Users.Find(userId);
             throw new NotImplementedException();
         }
 
