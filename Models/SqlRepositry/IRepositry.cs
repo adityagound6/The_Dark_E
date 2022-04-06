@@ -15,5 +15,6 @@ namespace FoodRest.Models.SqlRepositry
         public Users GetUsersById(int userId);
         public void DeleteUsersById(int userId);
         public Users EditUser(int userId, Users model);
+        public IEnumerable<Users> GetAllEmployee();
     }
 }

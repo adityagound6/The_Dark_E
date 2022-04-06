@@ -28,22 +28,57 @@ namespace FoodRest.Controllers
         public IActionResult Dashboard(int userId)
         {
             var user = db.Users.Find(userId);
-            return View();
+            var mod = new ListOfUsersViewModel();
+            mod.user = new Users();
+            mod.user.Name = user.Name;
+            mod.user.UserName = user.UserName;
+            mod.user.Address = user.Address;
+            mod.user.Email = user.Email;
+            mod.user.PostCode = user.PostCode;
+            mod.user.Role = user.Role;
+            mod.user.UserId = user.UserId;
+            //mod.user.Name = user.Name;
+           
+            var model = new UserDetailsViewModel()
+            {
+                Name = user.Name,
+                UserName = user.UserName,
+                Image = user.Image,
+                Address = user.Address,
+                Email = user.Email,
+                PostCode = user.PostCode,
+                Role = user.Role,
+                UserId = user.UserId
+            };
+            return View(mod);
         }
 
         //User CRUD
         #region
 
-        public IActionResult ListOfUsers()
+        public IActionResult ListOfUsers(int userId)
         {
-            var user = _Irepo.GetUser().FirstOrDefault();
-            User model = new User()
+            //var user = db.Users.Find(userId);
+            List<Users> mod = _Irepo.GetAllEmployee().ToList();
+            ListOfUsersViewModel model = new ListOfUsersViewModel();
+            var user = db.Users.Find(userId);
+            //var model = new ListOfUsersViewModel();
+            model.user = new Users();
+            model.user.Name = user.Name;
+            model.user.UserName = user.UserName;
+            model.user.Address = user.Address;
+            model.user.Email = user.Email;
+            model.user.PostCode = user.PostCode;
+            model.user.Role = user.Role;
+            model.user.UserId = user.UserId;
+            if (model.ListOfUser == null)
             {
-                UserName = user.UserName,
-                Email = user.Email,
-                UserId = user.UserId,
-                CreateDate = user.CreateDate
-            };
+                model.ListOfUser = new List<Users>();
+            }
+            foreach(var use in mod)
+            {
+                model.ListOfUser.Add(use);
+            }
             return View(model);
         }
         public IActionResult UserDetails(int userId)
@@ -71,6 +106,11 @@ namespace FoodRest.Controllers
 
         #endregion
 
+
+        //Category CRUD
+
+        #region
+
         [HttpGet]
         public IActionResult CreateCategory()
         {
@@ -78,7 +118,7 @@ namespace FoodRest.Controllers
         }
         [HttpPost]
         [Obsolete]
-        public IActionResult CreateCategory(CategoryViewModel model)
+        public IActionResult CreateCategory(CategoryListViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -93,17 +133,33 @@ namespace FoodRest.Controllers
             }
             return View(model);
         }
+        [HttpGet]
         public IActionResult EditCategory(int catId)
         {
+
             var cat = db.Categories.Find(catId);
-            return View(cat);
+            var model = new EditCategory()
+            {
+                Name = cat.Name,
+                NewPhoto = cat.ImageUrl,
+                CategoryId = cat.CategoryId
+            };
+            return View(model);
         }
         [HttpPost]
-        public IActionResult EditCategory(int CatId,CreateViewModel model)
+        public IActionResult EditCategory(int CatId,EditCategory model)
         {
             if (ModelState.IsValid)
             {
-                
+                var category = db.Categories.Find(CatId);
+                if(category == null)
+                {
+                    return View(model);
+                }
+                category.Name = model.Name;
+                category.ImageUrl = model.NewPhoto;
+                db.SaveChanges();
+                return RedirectToAction("Dashboard");
             }
             return View(model);
         }
@@ -115,10 +171,103 @@ namespace FoodRest.Controllers
             db.SaveChanges();
             return RedirectToAction("Dashboard");
         }
+        public IActionResult CategoryList()
+        {
+            var model = db.Categories;
+            return View(model);
+        }
+        public IActionResult DetailCategory(int CatId)
+        {
+            var model = db.Categories.Find(CatId);
+            return View(model);
+        }
 
+
+        #endregion
+
+
+
+        //Product CRUD
+        #region
+        public IActionResult ProductList()
+        {
+            var model = db.Products;
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult EditProduct(int prodId)
+        {
+            var model = db.Products.Find(prodId);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditProduct(int prodId,EditProductViewModel model)
+        {
+            var prod = db.Products.Find(prodId);
+            Product product = new Product
+            {
+                Name = model.Name,
+                CategoryId = model.CategoryId,
+                Qantity = model.Qantity,
+                Price = model.Price,
+                ImageUrl = model.NewPhoto
+            };
+            db.SaveChanges();
+            return RedirectToAction("DashBoard");
+        }
+
+        public IActionResult DeleteProduct(int prodId)
+        {
+            var product = db.Products.Find(prodId);
+            if(product == null)
+            {
+                return Json("Notm found");
+
+            }
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("DashBoard");
+        }
+
+        [HttpGet]
+        public IActionResult CreateProduct()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateProduct(EditProductViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Product product = new Product
+                {
+                    Name = model.Name,
+                    CategoryId = model.CategoryId,
+                    Description = model.Description,
+                    Price = model.Price,
+                    CreateDate = DateTime.Now,
+                    Qantity = model.Qantity,
+                    ImageUrl = model.ImageUrl,
+              
+                };
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("Dashboard");
+            }
+            return View(model);
+        }
+
+        #endregion
+
+
+        public IActionResult ListOrder()
+        {
+            var model = db.Orders;
+            return View(model);
+        }
 
         [Obsolete]
-        public string ProcessUploadFile(CategoryViewModel model)
+        public string ProcessUploadFile(CategoryListViewModel model)
         {
             string uniqueFileName = null;
             if (model.Photo != null)

@@ -1,7 +1,9 @@
-﻿
+﻿@model ListOfUsersViewModel
 
 @{ 
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
     ViewBag.Title = "DashBoard";
 }
-<h1>iafguiwagf</h1>
+
+
+<a asp-controller="Admin" asp-action="ListOfUsers" asp-route-userId="@Model.user.UserId">ListOfUser</a>

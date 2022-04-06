@@ -44,6 +44,12 @@ namespace FoodRest.Models.SqlRepositry
             //throw new NotImplementedException();
         }
 
+        public IEnumerable<Users> GetAllEmployee()
+        {
+            return context.Users;
+            //throw new NotImplementedException();
+        }
+
         public IEnumerable<Users> GetUser()
         {
             return context.Users;

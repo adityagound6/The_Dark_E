@@ -19,5 +19,6 @@ namespace FoodRest.Models
         public int CategoryId { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateDate { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
